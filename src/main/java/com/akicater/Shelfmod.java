@@ -2,11 +2,13 @@ package com.akicater;
 
 import com.akicater.blocks.FloorShelf;
 import com.akicater.blocks.Shelf;
+import com.akicater.blocks.ShelfBlockEntity;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -21,19 +23,19 @@ public class Shelfmod implements ModInitializer {
 	public static final String MODID = "shelf-mod";
     public static final Logger LOGGER = LoggerFactory.getLogger("shelf-mod");
 
-	public static final Shelf SHELF_OAK = new Shelf(AbstractBlock.Settings.create().nonOpaque());
+	public static final Shelf SHELF_OAK = new Shelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 	public static final FloorShelf FLOOR_SHELF_OAK = new FloorShelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
-	public static final Shelf SHELF_ACACIA = new Shelf(AbstractBlock.Settings.create().nonOpaque());
+	public static final Shelf SHELF_ACACIA = new Shelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 	public static final FloorShelf FLOOR_SHELF_ACACIA = new FloorShelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
-	public static final Shelf SHELF_BIRCH = new Shelf(AbstractBlock.Settings.create().nonOpaque());
+	public static final Shelf SHELF_BIRCH = new Shelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 	public static final FloorShelf FLOOR_SHELF_BIRCH = new FloorShelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
-	public static final Shelf SHELF_DARK_OAK = new Shelf(AbstractBlock.Settings.create().nonOpaque());
+	public static final Shelf SHELF_DARK_OAK = new Shelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 	public static final FloorShelf FLOOR_SHELF_DARK_OAK = new FloorShelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
-	public static final Shelf SHELF_SPRUCE = new Shelf(AbstractBlock.Settings.create().nonOpaque());
+	public static final Shelf SHELF_SPRUCE = new Shelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 	public static final FloorShelf FLOOR_SHELF_SPRUCE = new FloorShelf(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
 	public static final BlockItem SHELF_ITEM_OAK = new BlockItem(SHELF_OAK, new Item.Settings());
@@ -55,10 +57,30 @@ public class Shelfmod implements ModInitializer {
 			.icon(() -> new ItemStack(SHELF_OAK))
 			.displayName(Text.of("Shelf mod"))
 			.entries((context, entries) -> {
-				entries.add(SHELF_OAK);
-				entries.add(FLOOR_SHELF_OAK);
+				entries.add(SHELF_ITEM_OAK);
+				entries.add(FLOOR_SHELF_ITEM_OAK);
+
+				entries.add(SHELF_ITEM_ACACIA);
+				entries.add(FLOOR_SHELF_ITEM_ACACIA);
+
+				entries.add(SHELF_ITEM_BIRCH);
+				entries.add(FLOOR_SHELF_ITEM_BIRCH);
+
+				entries.add(SHELF_ITEM_DARK_OAK);
+				entries.add(FLOOR_SHELF_ITEM_DARK_OAK);
+
+				entries.add(SHELF_ITEM_SPRUCE);
+				entries.add(FLOOR_SHELF_ITEM_SPRUCE);
 			})
 			.build();
+
+	public static final BlockEntityType<ShelfBlockEntity> SHELF_BLOCK_ENTITY = Registry.register(
+			Registries.BLOCK_ENTITY_TYPE,
+			Identifier.of(MODID, "laying_item_block_entity"),
+			BlockEntityType.Builder.create(ShelfBlockEntity::new, SHELF_OAK, SHELF_ACACIA, SHELF_BIRCH, SHELF_DARK_OAK, SHELF_SPRUCE).build(null)
+	);
+
+
 
 	@Override
 	public void onInitialize() {
@@ -76,8 +98,10 @@ public class Shelfmod implements ModInitializer {
 		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_dark_oak"), SHELF_DARK_OAK);
 		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_dark_oak"), FLOOR_SHELF_DARK_OAK);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_dark_spruce"), SHELF_SPRUCE);
+		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_spruce"), SHELF_SPRUCE);
 		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_spruce"), FLOOR_SHELF_SPRUCE);
+
+
 
 		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_oak"), SHELF_ITEM_OAK);
 		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_oak"), FLOOR_SHELF_ITEM_OAK);
