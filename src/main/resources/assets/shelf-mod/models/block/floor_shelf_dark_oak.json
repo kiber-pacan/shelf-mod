@@ -1,7 +1,7 @@
 {
   "textures": {
-    "0": "minecraft:block/acacia_planks",
-    "particle": "minecraft:block/acacia_planks"
+    "0": "minecraft:block/dark_oak_planks",
+    "particle": "minecraft:block/dark_oak_planks"
   },
   "elements": [
     {
