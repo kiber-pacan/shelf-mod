@@ -7,5 +7,6 @@ public class ShelfmodClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		BlockEntityRendererFactories.register(Shelfmod.SHELF_BLOCK_ENTITY, ShelfBER::new);
+		BlockEntityRendererFactories.register(Shelfmod.FLOOR_SHELF_BLOCK_ENTITY, FloorShelfBER::new);
 	}
 }
