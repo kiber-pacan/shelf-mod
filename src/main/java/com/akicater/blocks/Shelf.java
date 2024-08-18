@@ -1,6 +1,5 @@
 package com.akicater.blocks;
 
-import com.akicater.Shelfmod;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,15 +7,12 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -26,11 +22,8 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class Shelf extends HorizontalFacingBlock implements Waterloggable, BlockEntityProvider {
     public static BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
@@ -53,6 +46,8 @@ public class Shelf extends HorizontalFacingBlock implements Waterloggable, Block
                 player.setStackInHand(Hand.MAIN_HAND, blockEntity.inventory.get(slot));
                 blockEntity.inventory.set(slot, ItemStack.EMPTY);
             }
+            world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+            blockEntity.markDirty();
             return ActionResult.SUCCESS;
         }
         return ActionResult.FAIL;
@@ -61,22 +56,27 @@ public class Shelf extends HorizontalFacingBlock implements Waterloggable, Block
     public static int getSlot(BlockHitResult hit, Direction dir) {
         Vec3d pos = hit.getPos();
         BlockPos blockPos = hit.getBlockPos();
+
         double x = Math.abs(pos.x - blockPos.getX());
         double y = Math.abs(pos.y - blockPos.getY());
         double z = Math.abs(pos.z - blockPos.getZ());
+
         int slot = 0;
-        switch (dir) {
-            case NORTH, SOUTH -> {
-                if (x > 0.5) slot += 1;
-                if (y > 0.5) slot += 2;
-            }
-            case EAST, WEST -> {
-                if (z > 0.5) slot += 1;
-                if (y > 0.5) slot += 2;
-            }
-        }
-        Shelfmod.LOGGER.info(pos.toString());
-        Shelfmod.LOGGER.info(String.valueOf(slot));
+
+        if (dir == Direction.EAST)
+            if (z > 0.5) slot += 1;
+
+        if (dir == Direction.WEST)
+            if (z < 0.5) slot += 1;
+
+        if (dir == Direction.NORTH)
+            if (x > 0.5) slot += 1;
+
+        if (dir == Direction.SOUTH)
+            if (x < 0.5) slot += 1;
+
+        if (y > 0.5) slot += 2;
+
         return slot;
     }
 
