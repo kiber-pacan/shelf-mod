@@ -1,27 +1,96 @@
 package com.akicater.blocks;
 
+import com.akicater.Shelfmod;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.function.BooleanBiFunction;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
-import static net.minecraft.block.BarrelBlock.FACING;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-public class FloorShelf extends HorizontalFacingBlock implements Waterloggable {
+public class FloorShelf extends HorizontalFacingBlock implements Waterloggable, BlockEntityProvider {
     public static BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    public FloorShelf(AbstractBlock.Settings settings) {
+    public FloorShelf(Settings settings) {
         super(settings);
         setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false).with(Properties.HORIZONTAL_FACING, Direction.NORTH));
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        FloorShelfBlockEntity blockEntity = (FloorShelfBlockEntity)world.getChunk(pos).getBlockEntity(pos);
+        if (blockEntity != null) {
+            ItemStack stack = player.getMainHandStack();
+            int slot = getSlot(hit, state.get(Properties.HORIZONTAL_FACING));
+            if (!stack.isEmpty() && blockEntity.inventory.get(slot).isEmpty()) {
+                blockEntity.inventory.set(slot, stack);
+                player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+            } else if (stack.isEmpty()) {
+                player.setStackInHand(Hand.MAIN_HAND, blockEntity.inventory.get(slot));
+                blockEntity.inventory.set(slot, ItemStack.EMPTY);
+            }
+            world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+            blockEntity.markDirty();
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.FAIL;
+    }
+
+    public static int getSlot(BlockHitResult hit, Direction dir) {
+        Vec3d pos = hit.getPos();
+        BlockPos blockPos = hit.getBlockPos();
+        double x = Math.abs(pos.x - blockPos.getX());
+        double z = Math.abs(pos.z - blockPos.getZ());
+        int slot = 0;
+
+        if (x > 0.5 && z > 0.5) slot = 3;
+        else if (z > 0.5) slot += 2;
+        else if (x > 0.5) slot += 1;
+
+        return slot;
+    }
+
+    @Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock())) {
+            if (world.getBlockEntity(pos) instanceof FloorShelfBlockEntity entity) {
+                for (int i = 0; i < entity.inventory.size(); i++) {
+
+                    ItemStack itemStack = entity.inventory.get(i);
+
+                    ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+
+                    world.updateComparators(pos, this);
+                }
+                entity.clear();
+            }
+            super.onStateReplaced(state, world, pos, newState, moved);
+        }
     }
 
     @Override
@@ -63,5 +132,10 @@ public class FloorShelf extends HorizontalFacingBlock implements Waterloggable {
 
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new FloorShelfBlockEntity(pos, state);
     }
 }
