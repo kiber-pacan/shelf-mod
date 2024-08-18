@@ -45,15 +45,6 @@ public class ShelfBER implements BlockEntityRenderer<ShelfBlockEntity> {
             )
     );
 
-    public List<Vec3d> quaternions = new ArrayList<>(
-            List.of(
-                    new Vec3d(0.25F, 0.25F, 0.25F),
-                    new Vec3d(0.75F, 0.25F, 0.25F),
-                    new Vec3d(0.25F, 0.75F, 0.25F),
-                    new Vec3d(0.75F, 0.75F, 0.25F)
-            )
-    );
-
     public Quaternionf getRotation(Direction direction) {
         return switch (direction) {
             case NORTH -> RotationAxis.POSITIVE_Y.rotationDegrees(0);
