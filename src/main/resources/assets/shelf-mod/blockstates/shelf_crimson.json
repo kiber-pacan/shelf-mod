@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "shelf-mod:block/shelf_crimson", "y": 180, "uvlock": false },
+    "facing=east":  { "model": "shelf-mod:block/shelf_crimson", "y":  270, "uvlock": false },
+    "facing=south": { "model": "shelf-mod:block/shelf_crimson", "uvlock": false },
+    "facing=west":  { "model": "shelf-mod:block/shelf_crimson", "y": 90, "uvlock": false }
+  }
+}
