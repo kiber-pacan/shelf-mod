@@ -1,5 +1,6 @@
 package com.akicater;
 
+import com.akicater.blocks.FloorShelfBlockEntity;
 import com.akicater.blocks.ShelfBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,22 +26,13 @@ import org.joml.Quaternionf;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FloorShelfBER implements BlockEntityRenderer<ShelfBlockEntity> {
-    public List<Vec3d> itemPositions = new ArrayList<>(
+public class FloorShelfBER implements BlockEntityRenderer<FloorShelfBlockEntity> {
+    public List<Vec3d> positions = new ArrayList<>(
             List.of(
-                    new Vec3d(0.278325F, 0.2627F, 0.75F),
-                    new Vec3d(0.721675F, 0.2627F, 0.75F),
-                    new Vec3d(0.278325F, 0.7373F, 0.75F),
-                    new Vec3d(0.721675F, 0.7373F, 0.75F)
-            )
-    );
-
-    public List<Vec3d> blockPositions = new ArrayList<>(
-            List.of(
-                    new Vec3d(0.278325F, 0.2627F, 0.75F),
-                    new Vec3d(0.721675F, 0.2627F, 0.75F),
-                    new Vec3d(0.278325F, 0.7373F, 0.75F),
-                    new Vec3d(0.721675F, 0.7373F, 0.75F)
+                    new Vec3d(0.2627F, 0.2F, 0.2627F),
+                    new Vec3d(0.7373F, 0.2F, 0.2627F),
+                    new Vec3d(0.2627F, 0.2F, 0.7373F),
+                    new Vec3d(0.7373F, 0.2F, 0.7373F)
             )
     );
 
@@ -61,9 +53,10 @@ public class FloorShelfBER implements BlockEntityRenderer<ShelfBlockEntity> {
     }
 
     @Override
-    public void render(ShelfBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(FloorShelfBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         BlockState state;
         World world = entity.getWorld();
+
         if ((state = world.getBlockState(entity.getPos())).getBlock() == Blocks.AIR) return;
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
@@ -74,21 +67,15 @@ public class FloorShelfBER implements BlockEntityRenderer<ShelfBlockEntity> {
         for (int i = 0; i < 4; i++) {
             ItemStack stack = entity.inventory.get(i);
             if(!stack.isEmpty()) {
-                Vec3d pos;
-                if (stack.getItem() instanceof BlockItem) {
-                    pos = blockPositions.get(i);
-                } else {
-                    pos = itemPositions.get(i);
-                }
+                Vec3d pos = positions.get(i);
 
                 matrices.push();
 
-                matrices.translate(0.5, 0, 0.5);
-                matrices.multiply(quaternionf);
-                matrices.translate(-0.5, 0, -0.5);
                 matrices.translate(pos.x, pos.y, pos.z);
                 matrices.scale(0.40625f, 0.40625f, 0.40625f);
-                //matrices.multiply(quaternionf);
+
+                matrices.multiply(quaternionf);
+                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
 
                 itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, x, overlay, matrices, vertexConsumers, entity.getWorld(), 1);
 
