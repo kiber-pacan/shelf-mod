@@ -1,6 +1,7 @@
 package com.akicater.blocks;
 
 import com.akicater.Shelfmod;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,7 +43,12 @@ public class FloorShelf extends HorizontalFacingBlock implements Waterloggable, 
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+        return null;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         FloorShelfBlockEntity blockEntity = (FloorShelfBlockEntity)world.getChunk(pos).getBlockEntity(pos);
         if (blockEntity != null) {
             ItemStack stack = player.getMainHandStack();

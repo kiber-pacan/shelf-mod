@@ -149,73 +149,73 @@ public class Shelfmod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		Registry.register(Registries.ITEM_GROUP, new Identifier("tutorial", "test_group"), GROUP);
+		Registry.register(Registries.ITEM_GROUP, Identifier.of("tutorial", "test_group"), GROUP);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_oak"), SHELF_OAK);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_oak"), FLOOR_SHELF_OAK);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_oak"), SHELF_OAK);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_oak"), FLOOR_SHELF_OAK);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_acacia"), SHELF_ACACIA);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_acacia"), FLOOR_SHELF_ACACIA);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_acacia"), SHELF_ACACIA);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_acacia"), FLOOR_SHELF_ACACIA);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_birch"), SHELF_BIRCH);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_birch"), FLOOR_SHELF_BIRCH);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_birch"), SHELF_BIRCH);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_birch"), FLOOR_SHELF_BIRCH);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_dark_oak"), SHELF_DARK_OAK);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_dark_oak"), FLOOR_SHELF_DARK_OAK);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_dark_oak"), SHELF_DARK_OAK);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_dark_oak"), FLOOR_SHELF_DARK_OAK);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_spruce"), SHELF_SPRUCE);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_spruce"), FLOOR_SHELF_SPRUCE);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_spruce"), SHELF_SPRUCE);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_spruce"), FLOOR_SHELF_SPRUCE);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_jungle"), SHELF_JUNGLE);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_jungle"), FLOOR_SHELF_JUNGLE);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_jungle"), SHELF_JUNGLE);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_jungle"), FLOOR_SHELF_JUNGLE);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_mangrove"), SHELF_MANGROVE);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_mangrove"), FLOOR_SHELF_MANGROVE);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_mangrove"), SHELF_MANGROVE);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_mangrove"), FLOOR_SHELF_MANGROVE);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_bamboo"), SHELF_BAMBOO);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_bamboo"), FLOOR_SHELF_BAMBOO);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_bamboo"), SHELF_BAMBOO);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_bamboo"), FLOOR_SHELF_BAMBOO);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_warped"), SHELF_WARPED);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_warped"), FLOOR_SHELF_WARPED);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_warped"), SHELF_WARPED);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_warped"), FLOOR_SHELF_WARPED);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_cherry"), SHELF_CHERRY);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_cherry"), FLOOR_SHELF_CHERRY);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_cherry"), SHELF_CHERRY);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_cherry"), FLOOR_SHELF_CHERRY);
 
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "shelf_crimson"), SHELF_CRIMSON);
-		Registry.register(Registries.BLOCK, new Identifier(MODID, "floor_shelf_crimson"), FLOOR_SHELF_CRIMSON);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "shelf_crimson"), SHELF_CRIMSON);
+		Registry.register(Registries.BLOCK, Identifier.of(MODID, "floor_shelf_crimson"), FLOOR_SHELF_CRIMSON);
 
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_oak"), SHELF_ITEM_OAK);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_oak"), FLOOR_SHELF_ITEM_OAK);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_oak"), SHELF_ITEM_OAK);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_oak"), FLOOR_SHELF_ITEM_OAK);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_acacia"), SHELF_ITEM_ACACIA);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_acacia"), FLOOR_SHELF_ITEM_ACACIA);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_acacia"), SHELF_ITEM_ACACIA);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_acacia"), FLOOR_SHELF_ITEM_ACACIA);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_birch"), SHELF_ITEM_BIRCH);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_birch"), FLOOR_SHELF_ITEM_BIRCH);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_birch"), SHELF_ITEM_BIRCH);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_birch"), FLOOR_SHELF_ITEM_BIRCH);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_dark_oak"), SHELF_ITEM_DARK_OAK);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_dark_oak"), FLOOR_SHELF_ITEM_DARK_OAK);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_dark_oak"), SHELF_ITEM_DARK_OAK);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_dark_oak"), FLOOR_SHELF_ITEM_DARK_OAK);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_spruce"), SHELF_ITEM_SPRUCE);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_spruce"), FLOOR_SHELF_ITEM_SPRUCE);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_spruce"), SHELF_ITEM_SPRUCE);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_spruce"), FLOOR_SHELF_ITEM_SPRUCE);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_jungle"), SHELF_ITEM_JUNGLE);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_jungle"), FLOOR_SHELF_ITEM_JUNGLE);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_jungle"), SHELF_ITEM_JUNGLE);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_jungle"), FLOOR_SHELF_ITEM_JUNGLE);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_mangrove"), SHELF_ITEM_MANGROVE);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_mangrove"), FLOOR_SHELF_ITEM_MANGROVE);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_mangrove"), SHELF_ITEM_MANGROVE);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_mangrove"), FLOOR_SHELF_ITEM_MANGROVE);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_bamboo"), SHELF_ITEM_BAMBOO);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_bamboo"), FLOOR_SHELF_ITEM_BAMBOO);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_bamboo"), SHELF_ITEM_BAMBOO);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_bamboo"), FLOOR_SHELF_ITEM_BAMBOO);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_warped"), SHELF_ITEM_WARPED);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_warped"), FLOOR_SHELF_ITEM_WARPED);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_warped"), SHELF_ITEM_WARPED);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_warped"), FLOOR_SHELF_ITEM_WARPED);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_cherry"), SHELF_ITEM_CHERRY);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_cherry"), FLOOR_SHELF_ITEM_CHERRY);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_cherry"), SHELF_ITEM_CHERRY);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_cherry"), FLOOR_SHELF_ITEM_CHERRY);
 
-		Registry.register(Registries.ITEM, new Identifier(MODID, "shelf_item_crimson"), SHELF_ITEM_CRIMSON);
-		Registry.register(Registries.ITEM, new Identifier(MODID, "floor_shelf_item_crimson"), FLOOR_SHELF_ITEM_CRIMSON);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "shelf_item_crimson"), SHELF_ITEM_CRIMSON);
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "floor_shelf_item_crimson"), FLOOR_SHELF_ITEM_CRIMSON);
 	}
 }

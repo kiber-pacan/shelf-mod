@@ -1,5 +1,6 @@
 package com.akicater.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +35,12 @@ public class Shelf extends HorizontalFacingBlock implements Waterloggable, Block
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+        return null;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         ShelfBlockEntity blockEntity = (ShelfBlockEntity)world.getChunk(pos).getBlockEntity(pos);
         if (blockEntity != null) {
             ItemStack stack = player.getMainHandStack();
